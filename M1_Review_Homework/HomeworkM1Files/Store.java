@@ -1,6 +1,6 @@
 
 public class Store {
-	
+
 	private String name, location;
 
 	public Store(String name, String location) {
@@ -26,18 +26,19 @@ public class Store {
 
 	@Override
 	public String toString() {
-		return name + " (" + location +")";
+		return name + " (" + location + ")";
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof Store) {
+		if (obj instanceof Store) {
 			Store other = (Store) obj;
-			return this.name.equalsIgnoreCase(other.name) &&
-					this.location.equalsIgnoreCase(other.location);
+			return this.name.equalsIgnoreCase(other.name) && this.location.equalsIgnoreCase(other.location);
 		} else {
 			return false;
 		}
 	}
 
 }
+
+
