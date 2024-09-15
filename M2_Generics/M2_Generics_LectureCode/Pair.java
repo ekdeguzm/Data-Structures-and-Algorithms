@@ -37,7 +37,7 @@ public class Pair<T> {
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
-			return true;
+			return true; // Returns true if the objects are the same
 		}
 		if (obj == null || getClass() != obj.getClass()) {
 			return false; // Check if obj is null or if it's not an instance of Pair
