@@ -3,80 +3,163 @@ import java.util.*;
 public class HomeworkM3Driver {
 
 	public static void prioritizeMaximumValue(List<Integer> numberList) {
-		// YOUR CODE HERE
+	    if (numberList.isEmpty() || numberList.size() == 1) {
+	        return; 
+	    }
+
+	    int maxIndex = 0; 
+
+	    for (int i = 1; i < numberList.size(); i++) {
+	        if (numberList.get(i) > numberList.get(maxIndex)) {
+	            maxIndex = i;
+	        }
+	    }
+
+	    if (maxIndex != 0) {
+	        Integer maxValue = numberList.remove(maxIndex); 
+	        numberList.add(0, maxValue); 
+	    }
 	}
 
 	public static boolean containsDuplicates(Multiset<String> wordSet) {
-		return false; // placeholder: replace with your own code
-		// YOUR CODE HERE
+	    Multiset<String> seenElements = new ArrayMultiset<>();
+	    int initialCount = wordSet.size();
+
+	    for (int index = 1; index < initialCount; index++) {  
+	        String currentItem = wordSet.remove(); 
+
+	        if (seenElements.getOccurrencesOf(currentItem) > 0) {
+	        	wordSet.add(currentItem); 
+	            return true; 
+	        }
+
+	        seenElements.add(currentItem);
+	        wordSet.add(currentItem); 
+	    }
+
+	    return false; 
 	}
+
+
+
 
 	public static ListFromOne<String> createListFromOneContainingChar(ListFromOne<String> wordList, char targetChar) {
-		return new ArrayListFromOne<String>(); // placeholder: replace with your own code
-		// YOUR CODE HERE
+	    ListFromOne<String> resultList = new ArrayListFromOne<>();
+
+	    int size = wordList.size();
+
+	    for (int i = 1; i <= size; i++) {
+	        String word = wordList.get(i);
+	        if (word.indexOf(targetChar) != -1) {
+	            resultList.add(word);
+	        }
+	    }
+	    return resultList;
 	}
 
-	public static int lastPosition(List<String> wordList, String targetWord) {
-		return 0; // placeholder: replace with your own code
-		// YOUR CODE HERE
+	
+	
+
+	public static int lastPosition(List<String> wordList, String target) {
+	    int lastPos = -1; 
+
+	    for (int i = wordList.size() - 1; i >= 0; i--) {
+
+	        if (wordList.get(i).equals(target)) {
+	            lastPos = i; 
+	            break; 
+	        }
+	    }
+	    return lastPos; 
 	}
+
 
 	public static boolean equivalentLists(ListFromOne<Integer> numberListFromOne, List<Integer> numberList) {
-		return false; // placeholder: replace with your own code
-		// YOUR CODE HERE
+
+		if (numberListFromOne.size() != numberList.size()) {
+	        return false; 
+	    }
+
+	    int size = numberListFromOne.size();
+	    for (int i = 1; i <= size; i++) {
+	    	
+	        Integer fromOneElement = numberListFromOne.get(i);
+	        Integer listElement = numberList.get(i - 1); 
+	        
+	        if (!fromOneElement.equals(listElement)) {
+	            return false; 
+	        }
+	    }
+
+	    return true;
 	}
 
 
 	public static void main(String[] args) {
 
-		System.out.println("-----------------------------TESTING Comparable AND compareTo-----------------------------");
-		Person p1 = new Person("Chip", "Munk", 123);			Person p2 = new Person("Trina", "Woods", 234);
-		Person p3 = new Person("Trina", "Forest", 345);			Person p4 = new Person("holly", "wood", 456);
-		Person p5 = new Person("Holly", "McRel", 567);			Person p6 = new Person("chip", "munk", 678);
-		Person p7 = new Person("Holly", "Wood", 789);			Person p8 = new Person("anne", "teak", 890);
-		Person p9 = new Person("Terry", "Bull", 901); 			Person p10 = new Person("Eddy", "Bull", 902);
+		System.out
+				.println("-----------------------------TESTING Comparable AND compareTo-----------------------------");
+		Person p1 = new Person("Chip", "Munk", 123);
+		Person p2 = new Person("Trina", "Woods", 234);
+		Person p3 = new Person("Trina", "Forest", 345);
+		Person p4 = new Person("holly", "wood", 456);
+		Person p5 = new Person("Holly", "McRel", 567);
+		Person p6 = new Person("chip", "munk", 678);
+		Person p7 = new Person("Holly", "Wood", 789);
+		Person p8 = new Person("anne", "teak", 890);
+		Person p9 = new Person("Terry", "Bull", 901);
+		Person p10 = new Person("Eddy", "Bull", 902);
 		Person p11 = new Person("anne", "teak", 111);
-		Person[] people =  {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11};
-		Person[] sortedPeople = {p10, p9, p3, p5, p1, p6, p11, p8, p4, p7, p2};
+		Person[] people = { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11 };
+		Person[] sortedPeople = { p10, p9, p3, p5, p1, p6, p11, p8, p4, p7, p2 };
 		System.out.println("Before sorting, array order is:");
 		System.out.println(Arrays.toString(people));
 		Arrays.sort(people);
 		System.out.println("\nArray is now sorted.");
 		System.out.println("Expected array: " + Arrays.toString(sortedPeople));
 		System.out.println("  Actual array: " + Arrays.toString(people));
-		if(!Arrays.equals(people,  sortedPeople)) {
+		if (!Arrays.equals(people, sortedPeople)) {
 			allTestsPassed = false;
 			System.out.println("***Test failed: array not sorted correctly.");
 		}
 
-		System.out.println("\n\n-----------------------------TESTING containsDuplicates(Multiset) METHOD-----------------------------");
+		System.out.println(
+				"\n\n-----------------------------TESTING containsDuplicates(Multiset) METHOD-----------------------------");
 		// parameter 1: the contents being added to the set
-		// parameter 2: the expected result (true if the set contains duplicates, false otherwise)
+		// parameter 2: the expected result (true if the set contains duplicates, false
+		// otherwise)
 		// parameter 3: a description of the test
 		testMultisetContainsDuplicates(new String[] {}, false, "empty set");
 		testMultisetContainsDuplicates(new String[] { "hi" }, false, "singleton set");
 		testMultisetContainsDuplicates(new String[] { "hi", "HI" }, false, "set with no duplicates");
 		testMultisetContainsDuplicates(new String[] { "a", "b", "c", "d", "e", "f" }, false, "set with no duplicates");
-		testMultisetContainsDuplicates(new String[] { "a", "b", "d", "e", "c", "c" }, true,  "set with duplicates added last");
-		testMultisetContainsDuplicates(new String[] { "a", "c", "b", "d", "a" }, true, "set with duplicates added first and last");
-		testMultisetContainsDuplicates(new String[] { "a", "b", "b", "c" }, true, "set with duplicates added in the middle");
-		testMultisetContainsDuplicates(new String[] { "a", "a", "b", "c", "e", "f" }, true, "set with duplicates added first");
+		testMultisetContainsDuplicates(new String[] { "a", "b", "d", "e", "c", "c" }, true,
+				"set with duplicates added last");
+		testMultisetContainsDuplicates(new String[] { "a", "c", "b", "d", "a" }, true,
+				"set with duplicates added first and last");
+		testMultisetContainsDuplicates(new String[] { "a", "b", "b", "c" }, true,
+				"set with duplicates added in the middle");
+		testMultisetContainsDuplicates(new String[] { "a", "a", "b", "c", "e", "f" }, true,
+				"set with duplicates added first");
 
-		System.out.println("\n\n-----------------------------TESTING createListContainingChar METHOD-----------------------------");
+		System.out.println(
+				"\n\n-----------------------------TESTING createListContainingChar METHOD-----------------------------");
 		// parameter 1: the contents of the ListFromOne
 		// parameter 2: the target character
 		// parameter 3: the contents of the expected answer ListFromOne
 		// parameter 4: a description of the test
 		testCreateList(new String[] {}, 'z', new String[] {}, "empty list");
-		testCreateList(new String[] { "gab" }, 'a', new String[] { "gab" },	
+		testCreateList(new String[] { "gab" }, 'a', new String[] { "gab" },
 				"singleton list with a word that has the target char");
-		testCreateList(new String[] { "zip" }, 'e', new String[] {}, 
+		testCreateList(new String[] { "zip" }, 'e', new String[] {},
 				"singleton list with a word that does not have the target char");
-		testCreateList(new String[] { "bid", "sing", "ennui", "i", "icky" }, 'i', new String[] { "bid", "sing", "ennui", "i", "icky" },
+		testCreateList(new String[] { "bid", "sing", "ennui", "i", "icky" }, 'i',
+				new String[] { "bid", "sing", "ennui", "i", "icky" },
 				"list with all elements containing the target character");
 		testCreateList(new String[] { "bid", "sing", "ennui", "i", "icky" }, 'z', new String[] {},
 				"list with no elements containing the target character");
-		testCreateList(new String[] { "apple", "anna", "bob", "ANIMAL", "canal", "frog", "cat" }, 'a', new String[] { "apple", "anna", "canal", "cat" },
+		testCreateList(new String[] { "apple", "anna", "bob", "ANIMAL", "canal", "frog", "cat" }, 'a',
+				new String[] { "apple", "anna", "canal", "cat" },
 				"list with elements that contain the target at beginning, middle, and end of the list");
 
 		System.out.println("\n\n-----------------------------TESTING lastPosition METHOD-----------------------------");
@@ -98,7 +181,8 @@ public class HomeworkM3Driver {
 		testLastPosition(new String[] { "f", "b", "g", "b", "v", "e", "c", "s" }, "f",
 				"target on the list once at the beginning of the list");
 
-		System.out.println("\n\n-----------------------------TESTING equivalentLists METHOD-----------------------------");
+		System.out.println(
+				"\n\n-----------------------------TESTING equivalentLists METHOD-----------------------------");
 		// parameter 1: the contents of the ListFromOne
 		// parameter 2: the contents of the List
 		// parameter 3: the expected result (true means equivalent, false means not)
@@ -131,7 +215,8 @@ public class HomeworkM3Driver {
 		testEquivalentLists(new Integer[] { 2, 3, 5, 4 }, new Integer[] { 3, 2, 5, 4 }, false,
 				"last two elements are the same");
 
-		System.out.println("\n\n-----------------------------TESTING EXTRA CREDIT prioritizeMaximumValue METHOD-----------------------------");
+		System.out.println(
+				"\n\n-----------------------------TESTING EXTRA CREDIT prioritizeMaximumValue METHOD-----------------------------");
 		// parameter 1: the contents of the List
 		// parameter 2: the expected contents of the list after the max is prioritized
 		// parameter 3: a description of the test
@@ -156,7 +241,6 @@ public class HomeworkM3Driver {
 		}
 	}
 
-
 	/*----------------------------------------------------------------------------------------------------------*/
 	/* TESTER METHODS */
 	/*----------------------------------------------------------------------------------------------------------*/
@@ -165,23 +249,25 @@ public class HomeworkM3Driver {
 	 * You don't need to use, modify, or understand these methods. You can safely
 	 * ignore them. :)
 	 */
-	
+
 	private static boolean allTestsPassed = true;
 
-	public static <T> T[]  listFromOneToArray(ListFromOne<T> list) {
-		return (T[]) Arrays.copyOfRange(( (ArrayListFromOne)list).listArray, 1, list.size()+1);
+	public static <T> T[] listFromOneToArray(ListFromOne<T> list) {
+		return (T[]) Arrays.copyOfRange(((ArrayListFromOne) list).listArray, 1, list.size() + 1);
 	}
-	public static void testMultisetContainsDuplicates(String[] wordArray, boolean expectedResult, String testDescription) {
+
+	public static void testMultisetContainsDuplicates(String[] wordArray, boolean expectedResult,
+			String testDescription) {
 		Multiset<String> wordSet = new ArrayMultiset<String>();
 		for (String word : wordArray) {
 			wordSet.add(word);
 		}
-		Object[] beforeSetArray = Arrays.copyOf(( (ArrayMultiset)wordSet).setArray, wordSet.size());
+		Object[] beforeSetArray = Arrays.copyOf(((ArrayMultiset) wordSet).setArray, wordSet.size());
 		Arrays.sort(beforeSetArray);
 
 		boolean actualResult = containsDuplicates(wordSet);
 
-		Object[] afterSetArray = Arrays.copyOf(( (ArrayMultiset)wordSet).setArray, wordSet.size());
+		Object[] afterSetArray = Arrays.copyOf(((ArrayMultiset) wordSet).setArray, wordSet.size());
 		Arrays.sort(afterSetArray);
 
 		System.out.println("\nDuplicates? Test of: " + Arrays.toString(beforeSetArray));
