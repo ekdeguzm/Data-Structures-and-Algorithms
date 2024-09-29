@@ -190,7 +190,7 @@ public class ArrayListFromOne<T extends Comparable<? super T>> implements ListFr
 
 	    for (int i = 1; i <= size; i++) {
 	        if (!listArray[i].equals(otherList.listArray[i])) {
-	            return false; // Found an unequal element
+	            return false;
 	        }
 	    }
 	    return true;
