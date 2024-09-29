@@ -31,8 +31,15 @@ public class ExpandableArrayMultiset<T> extends ArrayMultiset<T> implements Mult
 
 
 	public void trimToSize() {
-		// YOUR CODE HERE
+	    final int MINIMUM_CAPACITY = 1; 
+
+	    if (size() < setArray.length) {
+	        int newCapacity = Math.max(size(), MINIMUM_CAPACITY); 
+	        setArray = Arrays.copyOf(setArray, newCapacity);
+	    }
 	}
+
+
 	
 	private boolean isArrayFull() {
 		return size()==setArray.length;

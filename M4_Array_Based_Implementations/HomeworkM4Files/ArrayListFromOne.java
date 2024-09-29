@@ -158,15 +158,43 @@ public class ArrayListFromOne<T extends Comparable<? super T>> implements ListFr
 	
 	
 	public int removeAll(T element) {
-		// YOUR CODE HERE
-		return -1; // placeholder: replace with your own code
+	    int countRemoved = 0;
+	    
+	    for (int i = 1; i <= size; i++) {
+	        if (listArray[i].equals(element)) {
+	            remove(i);
+	            countRemoved++;
+	            i--; 
+	        }
+	    }
+	    
+	    return countRemoved;
 	}
+
 	
 	@Override
 	public boolean equals(Object other) {
-		// YOUR CODE HERE
-		return false; // placeholder: replace with your own code
-	} 
+	    if (this == other) {
+	        return true;
+	    }
+	    
+	    if (!(other instanceof ArrayListFromOne<?>)) {
+	        return false;
+	    }
+	    
+	    ArrayListFromOne<?> otherList = (ArrayListFromOne<?>) other;
+
+	    if (this.size != otherList.size) {
+	        return false;
+	    }
+
+	    for (int i = 1; i <= size; i++) {
+	        if (!listArray[i].equals(otherList.listArray[i])) {
+	            return false; // Found an unequal element
+	        }
+	    }
+	    return true;
+	}
 	
 	@Override
 	public int compareTo(ArrayListFromOne<T> otherList) {

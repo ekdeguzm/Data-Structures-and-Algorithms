@@ -127,9 +127,22 @@ public class ArrayMultiset<T> implements Multiset<T> {
 		
 	}
 	
-	public int removeAll(T anEntry) {
-		// YOUR CODE HERE
-		return -1; // placeholder: replace with your own code
+	public int removeAll(T element) {
+	    int removedCount = 0; 
+	    
+	    for (int i = 0; i < size; i++) {
+	        if (setArray[i].equals(element)) {
+	            removedCount++;
+	        } else if (removedCount > 0) {
+	            setArray[i - removedCount] = setArray[i];
+	        }
+	    }
+	    size -= removedCount;
+	    
+	    for (int i = size; i < setArray.length; i++) {
+	        setArray[i] = null;
+	    }
+	    return removedCount;
 	}
 
 	
