@@ -297,12 +297,46 @@ public class LinkedListFromOne<T extends Comparable<? super T>> implements ListF
 	}
 
 	public void addAll(T[] items) {
-		// YOUR CODE HERE
+	    if (items == null || items.length == 0) return; 
+
+	    Node current = head; 
+	    Node lastNode = null;
+
+	    while (current != null) {
+	        lastNode = current; 
+	        current = current.next;
+	    }
+
+	    for (T item : items) {
+	        Node newNode = new Node(item); 
+	        if (lastNode == null) { 
+	            head = newNode; 
+	        } else {
+	            lastNode.next = newNode; 
+	        }
+	        lastNode = newNode; 
+	        size++; 
+	    }
 	}
+
+	
+	
 	public T getMax() {
-		// YOUR CODE HERE
-		return null; // placeholder code: replace with your own statement
+	    if (isEmpty()) { 
+	        return null; 
+	    }
+
+	    T max = head.data; 
+	    Node current = head.next; 
+	    while (current != null) { 
+	        if (current.data.compareTo(max) > 0) { 
+	            max = current.data;
+	        }
+	        current = current.next; 
+	    }
+	    return max; 
 	}
+
 	
 	// assumes 1 <= position <= size
 	private Node getNodeAt(int position) {

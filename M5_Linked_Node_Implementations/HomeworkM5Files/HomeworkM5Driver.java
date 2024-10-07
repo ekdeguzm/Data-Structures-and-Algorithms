@@ -5,8 +5,19 @@ public class HomeworkM5Driver {
 	private static boolean allTestsPassed = true; 
 	
 	public static void printAtInterval(Node<String> firstNode, int interval) {
-		// YOUR CODE HERE
+	    Node<String> current = firstNode; 
+	    int count = 0; 
+
+	    while (current != null) {
+	        if (count % interval == 0) {
+	            System.out.print(current.data + " "); 
+	        }
+	        current = current.next; 
+	        count++; 
+	    }
+	    System.out.println(); 
 	}
+
 	public static boolean isDoublyLinkedPalindromeList(DoubleNode<Integer> firstNode, DoubleNode<Integer> lastNode)  	{
 		// YOUR CODE HERE
 		return true; // placeholder code: replace with your own statement
@@ -14,6 +25,8 @@ public class HomeworkM5Driver {
 		
 	public static void main(String[] args) {
 
+		
+		
 		
 		System.out.println("\n-----------------------------TESTING printAtInterval METHOD-----------------------------");
 		System.out.println("-----Note: there are no automated tests for this method. You must visually compare the outputs.");

@@ -170,11 +170,29 @@ public class LinkedMultiset<T> implements Multiset<T> {
 		}
 	}
 	
-	public int removeAll(T item) {
-		// YOUR CODE HERE
-		return 0; // placeholder code: replace with your own return statement(s)
-		
+	public int removeAll(T element) {
+	    int count = 0; 
+	    Node current = head; 
+	    Node previous = null; 
+
+	    while (current != null) {
+	        if (current.data.equals(element)) {
+	            count++; 
+	            if (previous == null) {
+	                head = current.next; 
+	            } else {
+	                previous.next = current.next; 
+	            }
+	            current = current.next;
+	            size--; 
+	        } else {
+	            previous = current;
+	            current = current.next; 
+	        }
+	    }
+	    return count;
 	}
+
 	
 	
 	private class Node {
