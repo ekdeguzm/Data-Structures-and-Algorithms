@@ -198,9 +198,23 @@ public class ArrayListFromOne<T extends Comparable<? super T>> implements ListFr
 	
 	@Override
 	public int compareTo(ArrayListFromOne<T> otherList) {
-		// YOUR EXTRA CREDIT CODE HERE
-		return 0; // placeholder: replace with your own code
+	    if (this.size < otherList.size) {
+	        return -1; 
+	    } else if (this.size > otherList.size) {
+	        return 1; 
+	    }
+	    for (int i = 1; i <= this.size; i++) {
+	        T thisElement = this.listArray[i];
+	        T otherElement = otherList.listArray[i];
+
+	        int comparison = thisElement.compareTo(otherElement);
+	        if (comparison != 0) {
+	            return comparison; 
+	        }
+	    }
+	    return 0;
 	}
+
 
 		
 	private boolean isArrayFull() {
