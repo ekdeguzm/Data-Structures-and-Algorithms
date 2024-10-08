@@ -18,10 +18,28 @@ public class HomeworkM5Driver {
 	    System.out.println(); 
 	}
 
-	public static boolean isDoublyLinkedPalindromeList(DoubleNode<Integer> firstNode, DoubleNode<Integer> lastNode)  	{
-		// YOUR CODE HERE
-		return true; // placeholder code: replace with your own statement
+	public static boolean isDoublyLinkedPalindromeList(DoubleNode<Integer> firstNode, DoubleNode<Integer> lastNode) {
+	   
+		
+		DoubleNode<Integer> front = firstNode;
+	    DoubleNode<Integer> back = lastNode;
+
+	    while (front != null && back != null && front != back && front.previous != back) {
+	        if (!front.data.equals(back.data)) {
+	            return false; 
+	        }
+	        
+	        front = front.next;
+	        back = back.previous;
+	    }
+
+	    if (front == back) {
+	        return true; 
+	    }
+
+	    return true; 
 	}
+
 		
 	public static void main(String[] args) {
 
