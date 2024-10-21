@@ -66,10 +66,20 @@ public class LinkedMultiset<T> implements Multiset<T> {
 
 	
 	public int getOccurrencesOf(T element) {
-		// YOUR NEW RECURSIVE METHOD HERE; OLD ITERATIVE VERSION COMMENTED OUT ABOVE
-		// NOTE: You CAN include a helper method.
-		return 0; // placeholder: replace with your own code
+	    return getOccurrencesOfHelper(head, element);
 	}
+
+	private int getOccurrencesOfHelper(Node node, T element) {
+	    if (node == null) {
+	        return 0;
+	    }
+	    if (node.data.equals(element)) {
+	        return 1 + getOccurrencesOfHelper(node.next, element); 
+	    } else {
+	        return getOccurrencesOfHelper(node.next, element); 
+	    }
+	}
+
 	
 	@Override
 	public boolean contains(T element) {
