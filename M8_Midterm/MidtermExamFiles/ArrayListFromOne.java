@@ -16,7 +16,7 @@ public class ArrayListFromOne<T extends Comparable<? super T>> implements ListFr
 
 		@SuppressWarnings("unchecked")
 		T[] values = (T[]) new Comparable[count];
-		current = first; 
+		current = first;
 
 		for (int i = 0; i < count; i++) {
 			values[i] = current.data;
@@ -24,7 +24,7 @@ public class ArrayListFromOne<T extends Comparable<? super T>> implements ListFr
 		}
 
 		for (int i = count - 1; i >= 0; i--) {
-			add(1, values[i]); 
+			add(1, values[i]);
 		}
 	}
 
