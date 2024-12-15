@@ -21,22 +21,45 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 
 	// IMPLEMENT THIS METHOD; THIS METHOD CANNOT BE RECURSIVE
 	private boolean addEntryHelperNonRecursive(T newEntry) {
-		// YOUR CODE HERE! 
-		
-		return false; // placeholder: replace with your own code
+		BinaryNode<T> currentNode = root;
+		while (true) {
+			int comparison = newEntry.compareTo(currentNode.getData());
+			if (comparison <= 0) {
+				if(currentNode.hasLeftChild()) {
+					currentNode = currentNode.getLeftChild();
+				} else {
+					currentNode.setLeftChild(new BinaryNode<>(newEntry));
+					return true;
+				}
+			} else {
+				if (currentNode.hasRightChild()) {
+					currentNode = currentNode.getRightChild();
+				} else {
+					currentNode.setRightChild(new BinaryNode<>(newEntry));
+					return true;
+				}
+			}
+		}
 	}
 
 	// THIS METHOD CANNOT BE RECURSIVE.
 	// Make sure to take advantage of the sorted nature of the BST!
-	public int countIterative(T target) {
-		// YOUR CODE HERE!
-		
+	public int countIterative(T target) {		
 		// this initial code is meant as a suggestion to get your started- use it or delete it!
 		int count = 0;
 		BinaryNode<T> currentNode = root;
-
-		// consider a loop!
-		
+		while (currentNode != null) {
+			int comparison = target.compareTo(currentNode.getData());
+			if (comparison == 0) {
+				count++;
+				currentNode = currentNode.getLeftChild();
+			} else if (comparison < 0) {
+				currentNode = currentNode.getLeftChild();
+			} else {
+				currentNode = currentNode.getRightChild();
+			}
+		}
+		// consider a loop!		
 		return count;
 	}
 
@@ -44,31 +67,42 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 	// You are allowed to create a private helper.
 	// Make sure to take advantage of the sorted nature of the BST!
 	public int countGreaterRecursive(T target) {
-		// YOUR CODE HERE! 
-			
-		// this initial code is meant as a suggestion to get your started- use it or delete it!
-		int count = 0;
-		BinaryNode<T> rootNode = root;
-				
-		// consider a helper method!
-			
-		return count;
+		return countGreaterRecursiveHelper(root, target);
+	}	
+	public int countGreaterRecursiveHelper(BinaryNode<T> node, T target) {
+		if (node == null) {
+			return 0;
+		}
+		int comparison = target.compareTo(node.getData());
+		if (comparison < 0) {
+			return 1 + countGreaterRecursiveHelper(node.getLeftChild(), target) + countGreaterRecursiveHelper(node.getRightChild(), target);
+		} else {
+			return countGreaterRecursiveHelper(node.getRightChild(), target);
+		}
 	}
+	
 
 	// THIS METHOD CANNOT BE RECURSIVE.
 	// Hint: use a stack!
 	// Make sure to take advantage of the sorted nature of the BST!
 	public int countGreaterIterative(T target) {
-		// YOUR CODE HERE!
+		int count = 0; 
+		Stack<BinaryNode<T>> nodeStack = new Stack<>();
+		BinaryNode<T> currentNode = root;
 		
-		// this initial code is meant as a suggestion to get your started- use it or delete it!
-		int count = 0;
-		BinaryNode<T> rootNode = root;
-		Stack<BinaryNode<T>> nodeStack = new Stack<BinaryNode<T>>();
-		nodeStack.push(rootNode);
-
-		// consider a loop based on the stack!
-		
+		while (currentNode != null || !nodeStack.isEmpty()) {
+			while (currentNode != null) {
+				nodeStack.push(currentNode);
+				currentNode = currentNode.getRightChild();
+			}
+			
+			currentNode = nodeStack.pop();
+			if (target.compareTo(currentNode.getData()) < 0 ) {
+				count++;
+			}
+			currentNode = currentNode.getLeftChild();
+		}
+		// consider a loop based on the stack!		
 		return count;
 	}
 			
@@ -78,8 +112,21 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 	// The method can be iterative or recursive.
 	// If you make the method recursive, you might need to comment out the call to the method in Part B.
 	public int countUniqueValues() {
-		// YOUR EXTRA CREDIT CODE HERE! 
-		return 0; // placeholder: replace with your own code
+		Set<T> uniqueValues = new HashSet<>();
+		Stack<BinaryNode<T>> nodeStack = new Stack<>();
+		BinaryNode<T> currentNode = root;
+		
+		while(currentNode != null || !nodeStack.isEmpty()) {
+			while (currentNode != null) {
+				nodeStack.push(currentNode);
+				currentNode = currentNode.getLeftChild();
+			}
+			currentNode = nodeStack.pop();
+			uniqueValues.add(currentNode.getData());
+			currentNode = currentNode.getRightChild();
+		}
+		
+		return uniqueValues.size(); 
 	}
 
 }
